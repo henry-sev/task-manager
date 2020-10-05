@@ -24,7 +24,7 @@
         </section>
         <section class="statistics active_tasks">
           <div class="statistics_left">
-            <h3 class="statistics_title">active Tasks</h3>
+            <h3 class="statistics_title">Active Tasks</h3>
             <p class="statistics_content">1</p>
           </div>
           <div class="statistics_right">
@@ -33,7 +33,7 @@
         </section>
         <section class="statistics padding_tasks">
           <div class="statistics_left">
-            <h3 class="statistics_title">padding Tasks</h3>
+            <h3 class="statistics_title">Padding Tasks</h3>
             <p class="statistics_content">1</p>
           </div>
           <div class="statistics_right">
@@ -42,7 +42,7 @@
         </section>
         <section class="statistics closed_tasks">
           <div class="statistics_left">
-            <h3 class="statistics_title">closed Tasks</h3>
+            <h3 class="statistics_title">Closed Tasks</h3>
             <p class="statistics_content">1</p>
           </div>
           <div class="statistics_right">
@@ -50,6 +50,66 @@
           </div>
         </section>
       </nav>
+      <!-- 任务列表-Article -->
+      <article dlass="task_container">
+        <!-- 列表标题+工具栏-Section -->
+        <section class="title_bar">
+          <h2 class="task_list_title">Your Task List</h2>
+          <div class="tools">
+            <input type="text" placeholder="Please enter task name to search" class="search_input" />
+            <button class="btn search_btn"><img src="images/search.svg" alt="search" /></button>
+            <button class="btn add_btn"><img src="images/add.svg" alt="add" /></button>
+          </div>
+        </section>
+        <!-- 列表内容-Section -->
+        <section class="task_list">
+          <table class="task_data_container">
+            <!-- 表头-thead -->
+            <thead class="task_header">
+              <tr class="task_row">
+                <th class="task_num_col">#</th>
+                <th class="task_name_col">
+                  Task name
+                  <span class="sort_container">
+                    <button class="btn sort_btn sort_up"></button>
+                    <button class="btn sort_btn sort_down"></button>
+                </span>
+                </th>
+                <th class="task_desc_col">Task Description</th>
+                <th class="task_deadline_col">
+                  Deadline
+                  <span class="sort_container">
+                    <button class="btn sort_btn sort_up"></button>
+                    <button class="btn sort_btn sort_down"></button>
+                </span>
+                </th>
+                <th class="task_status_col">
+                  Status
+                  <span class="sort_container">
+                    <button class="btn sort_btn sort_up"></button>
+                    <button class="btn sort_btn sort_down"></button>
+                </span>
+                </th>
+                <th class="task_operation_col">Operation</th>
+              </tr>
+            </thead>
+            <!-- 表体-tbody -->
+            <tbody class="task_body">
+              <tr class="task_row">
+                <td class="task_num_col">1</td>
+                <td class="task_name_col">1</td>
+                <td class="task_desc_col"> white-space CSS 属性是用来设置如何处理元素中的空白。nowrap：连续的空白符会被合并。但文本内的换行无效。</td>
+                <td class="task_deadline_col">2020-10-08</td>
+                <td class="task_status_col active">Active</td>
+                <td class="task_operation_col">
+                  <button class="btn btn_icon"><img src="images/delete.svg" alt="delete" /></button>
+                  <button class="btn btn_icon"><img src="images/update.svg" alt="update" /></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </article>
     </main>
   </body>
 </html>

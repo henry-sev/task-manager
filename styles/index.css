@@ -91,3 +91,141 @@ body {
 .closed_tasks {
   background-image: url("../images/closed_tasks_bg.svg");
 }
+
+.title_bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.tools {
+  display: flex;
+  align-items: flex-end;
+  margin: 16px 0;
+}
+
+.btn {
+  outline: none;
+  cursor: pointer;
+}
+
+.search_btn,
+.add_btn {
+  padding: 5px 10px 2px;
+  border-radius: 15px;
+  border: 1px solid #308169;
+  background-color: #fff;
+}
+
+.search_btn {
+  margin: 2px 20px 0 0;
+}
+
+.search_input {
+  width: 240px;
+  border: 0;
+  border-bottom: 2px solid black;
+  padding-left: 5px;
+  font-size: 15px;
+}
+
+.task_list {
+  /* height: 100%; */
+  margin: 0 10px;
+}
+
+.task_data_container {
+  width: 100%;
+  table-layout: fixed;  /*列的宽度由该列首行决定*/
+}
+
+.task_header {
+  background-color: #ebecf0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sort_up {
+  background-image: url("../images/sort_up.svg");
+  /* -webkit-mask: url(../images/sort_up.svg) no-repeat center; */
+  /* height: 16px; */
+
+}
+
+.sort_down {
+  background-image: url("../images/sort_down.svg");
+}
+
+.sort_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.sort_btn {
+  border: 0;
+  height: 11px;
+  background-position: center;
+}
+
+.task_row {
+  display: flex;
+  padding: 5px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ebecf0;
+}
+
+.task_num_col {
+  width: 5%;
+}
+
+.task_name_col {
+  width: 16%;
+  display: flex;
+}
+
+.task_desc_col {
+  width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis; /*定义如何表示未显示的溢出内容，需设置前置条件overflow：hidden*/
+  cursor: pointer;
+  white-space: nowrap;  /*不加的话对汉字隐藏无效？*/
+}
+
+.task_desc_col:hover {
+  overflow: visible;
+}
+
+.task_deadline_col {
+  display: flex;
+  width: 14%;
+}
+
+.task_status_col {
+  display: flex;
+  width: 12%;
+}
+
+.task_operation_col {
+  width: 8%;
+  display: flex;
+  justify-content: center;
+}
+
+.active {
+  color: #b1b106;
+}
+
+.padding {
+  color: #5252bb;
+}
+
+.closed {
+  color: #ee5271;
+}
+
+.btn_icon {
+  border: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
