@@ -28,3 +28,66 @@ body {
 .title {
   text-align: center;
 }
+
+.overview {
+  display: flex;
+  justify-content: space-around;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  background-position: center center;
+  background-size: cover;
+  max-width: 23%;
+  height: 80px;
+  flex-grow: 1;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: multiply;
+  color: #fff;
+  cursor: pointer;
+}
+
+.statistics_left {
+  flex-grow: 1;
+}
+
+.statistics_right {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistics_title {
+  margin: 0;
+  padding: 10px;
+}
+
+.statistics_content {
+  margin: 0;
+  padding: 0 10px;
+  font-size: 32px;
+}
+
+.statistics_proportion {
+  font-size: 50px;
+  margin: 0;
+  padding: 0 10px;
+}
+.all_tasks {
+  background-image: url("../images/all_tasks_bg.jpg");
+}
+
+.active_tasks {
+  background-image: url("../images/active_task_bg.svg");
+}
+
+.padding_tasks {
+  background-image: url("../images/padding_tasks_bg.svg");
+}
+
+.closed_tasks {
+  background-image: url("../images/closed_tasks_bg.svg");
+}
