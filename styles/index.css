@@ -9,4 +9,22 @@ body {
 .theme {
   background: url("../images/water_wave_bg.gif");
   background-size: cover;
+  font-family: serif, "Microsoft Yahei";
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main_container {
+  width: 80%;
+  height: 85%;
+  background-color: #fff;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.title {
+  text-align: center;
 }
