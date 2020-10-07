@@ -5,3 +5,7 @@ function saveAllTasks(allTasks) {
 function getAllTasks() {
   return JSON.parse(localStorage.getItem('tasks'));
 }
+
+function findTask(id) {
+  return getAllTasks().find(task => task.id === id);
+}

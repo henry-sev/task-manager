@@ -29,7 +29,7 @@ function renderPage() {
 
     let taskStatusCol = document.createElement("td");
     taskStatusCol.classList.add("task_status_col");
-    taskStatusCol.classList.add("active");
+    taskStatusCol.classList.add(task.status.toLowerCase());
     taskStatusCol.textContent = task.status;
     taskRow.appendChild(taskStatusCol);
 
@@ -39,6 +39,7 @@ function renderPage() {
     let deleteBtn = document.createElement("button");
     deleteBtn.classList.add("btn");
     deleteBtn.classList.add("btn_icon");
+    deleteBtn.setAttribute("onclick", "createDeleteTaskPopover(" + task.id + ")")
     let deleteImg = document.createElement("img");
     deleteImg.setAttribute("src", "images/delete.svg");
     deleteImg.setAttribute("alt", "delete");
@@ -48,6 +49,7 @@ function renderPage() {
     let updateBtn = document.createElement("button");
     updateBtn.classList.add("btn");
     updateBtn.classList.add("btn_icon");
+    updateBtn.setAttribute("onclick", "createUpdateTaskPopover(" + task.id + ")");
     let updateImg = document.createElement("img");
     updateImg.setAttribute("src", "images/update.svg");
     updateImg.setAttribute("alt", "update");

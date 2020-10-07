@@ -18,10 +18,20 @@ function createdAddTaskPopover() {
   showModalPopover();
 }
 
+//创建修改任务弹出框
+function createUpdateTaskPopover(id) {
+  const icon = "/images/update.svg";
+  const title = "Update A Task";
+  const okBtnClickEvent = "updateTask(" + id + ")";
+  let task = findTask(id);
+  createModalPopover(icon, title, okBtnClickEvent, task)
+  showModalPopover();
+}
+
 //设置弹出框内容
-function createModalPopover(icon, title, okBtnClickEvent) {
+function createModalPopover(icon, title, okBtnClickEvent, task) {
   createPopoverHeaderAndFooter(icon, title, okBtnClickEvent);
-  createPopoverContent();
+  createPopoverContent(task);
 }
 
 //设置弹出框头部和尾部内容
@@ -62,6 +72,40 @@ function createTask() {
   hideModalPopover();
 }
 
+function updateTask(id) {
+  let $task = findTask(id);
+  // console.log($task);
+  let nameInput = document.querySelector("#task_name");
+  let deadlineInput = document.querySelector("#task_deadline");
+  let descInput = document.querySelector("#task_desc");
+
+  if (requiredCheck([nameInput, deadlineInput, descInput])) {
+    return;
+  }
+  
+  //更新status
+  let $status = '';
+  let allStatus = document.getElementsByName("status")
+  allStatus.forEach(status => $status = status.checked ? status.value : $status);
+
+  let allTasks = getAllTasks()
+      //判断两个对象相等的方法
+  let $index = allTasks.findIndex(task => JSON.stringify(task) === JSON.stringify($task));
+  let newTask = {
+    id: id,
+    name: nameInput.value,
+    deadline: deadlineInput.value,
+    description: descInput.value,
+    status: $status,
+    createDate: new Date().getTime()
+  }     
+
+  allTasks.splice($index, 1, newTask);
+  saveAllTasks(allTasks);
+  renderPage();
+  hideModalPopover();
+}
+
 //判断输入框是否为空
 function requiredCheck(elements) {
   let result = false;
@@ -76,7 +120,7 @@ function requiredCheck(elements) {
 }
 
 //设置弹出框主体内容
-function createPopoverContent() {
+function createPopoverContent(task) {
   let $container = document.createElement("p");
   $container.classList.add("text_container");
 
@@ -87,6 +131,7 @@ function createPopoverContent() {
   let nameInput = document.createElement("input");
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("id", "task_name");
+  nameInput.value = task ? task.name : '';
   $container.appendChild(nameInput);
 
   let deadlineLabel = document.createElement("label");
@@ -96,7 +141,65 @@ function createPopoverContent() {
   let deadlineInput = document.createElement("input");
   deadlineInput.setAttribute("type", "text");
   deadlineInput.setAttribute("id", "task_deadline");
+  deadlineInput.value = task ? task.deadline : '';
   $container.appendChild(deadlineInput);
+
+  if(task) {
+    let statusLabel = document.createElement("label");
+    statusLabel.textContent = "Status";
+    $container.appendChild(statusLabel);
+
+    let statusContainer = document.createElement("div");
+    statusContainer.classList.add("status_container");
+    $container.appendChild(statusContainer);
+
+
+    let activeInput = document.createElement("input");
+    activeInput.setAttribute("type", "radio");
+    activeInput.setAttribute("id", "active_status");
+    activeInput.setAttribute("name", "status");
+    activeInput.setAttribute("value", "Active");
+    statusContainer.appendChild(activeInput);
+    let activeLabel = document.createElement("label");
+    activeLabel.setAttribute("for", "active_status");
+    activeLabel.textContent = "Active";
+    statusContainer.appendChild(activeLabel);
+
+    let paddingInput = document.createElement("input");
+    paddingInput.setAttribute("type", "radio");
+    paddingInput.setAttribute("id", "padding_status");
+    paddingInput.setAttribute("name", "status");
+    paddingInput.setAttribute("value", "Padding");
+    statusContainer.appendChild(paddingInput);
+    let paddingLabel = document.createElement("label");
+    paddingLabel.setAttribute("for", "padding_status");
+    paddingLabel.textContent = "Padding";
+    statusContainer.appendChild(paddingLabel);
+
+    let closedInput = document.createElement("input");
+    closedInput.setAttribute("type", "radio");
+    closedInput.setAttribute("id", "closed_status");
+    closedInput.setAttribute("name", "status");
+    closedInput.setAttribute("value", "Closed");
+    statusContainer.appendChild(closedInput);
+    let closedLabel = document.createElement("label");
+    closedLabel.setAttribute("for", "closed_status");
+    closedLabel.textContent = "Closed";
+    statusContainer.appendChild(closedLabel);
+
+
+    if(task.status === "Active") {
+      activeInput.setAttribute("checked", "")
+    }
+
+    if(task.status === "Padding") {
+      paddingInput.setAttribute("checked", "")
+    }
+
+    if(task.status === "Closed") {
+      closedInput.setAttribute("checked", "")
+    }
+  }
 
   let descLabel = document.createElement("label");
   descLabel.setAttribute("for", "task_desc");
@@ -110,11 +213,11 @@ function createPopoverContent() {
     "placeholder", 
     "Please enter task descript, Maximum 200 characters"
   );
+  descTextarea.value = task ? task.description : '';
   $container.appendChild(descTextarea);
 
   let modalContainer = document.querySelector("#modal_container");
   modalContainer.innerHTML = '';
   modalContainer.appendChild($container);
-
 }
 

@@ -323,3 +323,18 @@ body {
   font-size: 15px;
   width: 60px;
 }
+
+.status_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.status_container label {
+  flex-grow: 2;
+  margin: 0;
+}
+
+.status_container input {
+  margin: 0 5px;
+}
