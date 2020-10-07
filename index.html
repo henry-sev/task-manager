@@ -16,14 +16,14 @@
         <h1 class="title">Manage Your Tasks</h1>
       </header>
       <nav class="overview">
-        <section class="statistics all_tasks">
+        <section class="statistics all_tasks" onclick="filterTaskByStatus('all')">
           <div class="statistics_left">
             <h3 class="statistics_title">All Tasks</h3>
             <p class="statistics_content" id="all_task_count">1</p>
           </div>
           <div class="statistics_right"></div>
         </section>
-        <section class="statistics active_tasks">
+        <section class="statistics active_tasks" onclick="filterTaskByStatus('Active')">
           <div class="statistics_left">
             <h3 class="statistics_title">Active Tasks</h3>
             <p class="statistics_content" id="active_task_count">1</p>
@@ -32,7 +32,7 @@
             <p class="statistics_proportion" id="active_task_propoption">10%</p>
           </div>
         </section>
-        <section class="statistics padding_tasks">
+        <section class="statistics padding_tasks" onclick="filterTaskByStatus('Padding')">
           <div class="statistics_left">
             <h3 class="statistics_title">Padding Tasks</h3>
             <p class="statistics_content" id="padding_task_count">1</p>
@@ -41,7 +41,7 @@
             <p class="statistics_proportion" id="padding_task_propoption">10%</p>
           </div>
         </section>
-        <section class="statistics closed_tasks">
+        <section class="statistics closed_tasks" onclick="filterTaskByStatus('Closed')">
           <div class="statistics_left">
             <h3 class="statistics_title">Closed Tasks</h3>
             <p class="statistics_content" id="closed_task_count">1</p>
@@ -57,8 +57,8 @@
         <section class="title_bar">
           <h2 class="task_list_title">Your Task List</h2>
           <div class="tools">
-            <input type="text" placeholder="Please enter task name to search" class="search_input" />
-            <button class="btn search_btn"><img src="images/search.svg" alt="search" /></button>
+            <input type="text" placeholder="Please enter task name to search" class="search_input" id="search_input" onkeyup="searchTasks(event)"/>
+            <button class="btn search_btn" onclick="filterTaskByName()"><img src="images/search.svg" alt="search" /></button>
             <button class="btn add_btn" onclick="createdAddTaskPopover()"><img src="images/add.svg" alt="add" /></button>
           </div>
         </section>

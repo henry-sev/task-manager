@@ -1,10 +1,99 @@
 // You Need to implement
+//渲染整个页面
 function renderPage() {
   showStatisticsCards();
+  showAllTasks();
+}
+
+//显示所有任务
+function showAllTasks() {
   let allTasks = getAllTasks();
+  createTaskBody(allTasks);
+}
+
+// function showTasks() {
+//   createTaskBody(tasks);
+// }
+
+//显示任务统计结果
+function showStatisticsCards() {
+  let allTaskCount = document.querySelector("#all_task_count");
+  let activeTaskCount = document.querySelector("#active_task_count");
+  let paddingTaskCount = document.querySelector("#padding_task_count");
+  let closedTaskCount = document.querySelector("#closed_task_count");
+
+  let activeTaskProp = document.querySelector("#active_task_propoption")
+  let paddingTaskProp = document.querySelector("#padding_task_propoption")
+  let closedTaskProp = document.querySelector("#closed_task_propoption")
+
+  let allTasks = getAllTasks();
+  allTaskCount.textContent = allTasks.length;
+  countTasks(activeTaskCount, "Active", activeTaskProp);
+  countTasks(paddingTaskCount, "Padding", paddingTaskProp);
+  countTasks(closedTaskCount, "Closed", closedTaskProp);
+}
+
+//统计任务数据
+function countTasks(countDom, status, propDom) {
+  countDom.textContent = 0;
+  let allTasks = getAllTasks();
+  allTasks.forEach(task => {
+    if (task.status === status) {
+      countDom.textContent++
+    }
+  });
+  
+  if(allTasks.length === 0) {
+    propDom.textContent = "0%";
+  }
+  else {
+    propDom.textContent = parseFloat((countDom.textContent/allTasks.length).toFixed(2)) * 100 + "%";
+  }
+}
+
+//根据status筛选任务
+function filterTaskByStatus(status) {
+  if (status === "all") {
+    tasks = getAllTasks();
+  }
+  else {
+    tasks = findTaskByStatus(status);
+  }
+  createTaskBody(tasks);
+}
+
+//根据任务名筛选任务，点击搜索按钮搜索任务
+function filterTaskByName() {
+  let searchInput = document.querySelector("#search_input");
+  if (searchInput.value) {
+    let taskName = searchInput.value;
+    let tasks = findTaskByName(taskName);
+    createTaskBody(tasks);
+  }
+  else {
+    showAllTasks();
+  }
+}
+
+//搜索框回车搜索任务
+function searchTasks(event) {
+  let searchInput = document.querySelector("#search_input");
+  if(event.keyCode === 13 && searchInput.value) {
+    let taskName = searchInput.value;
+    let tasks = findTaskByName(taskName);
+    createTaskBody(tasks);
+  }
+    //keyCode被废弃？
+  else if (event.keyCode === 13 && !searchInput.value) {
+    showAllTasks();
+  }
+}
+
+//创建任务列表
+function createTaskBody(tasks) {
   let taskBody = document.querySelector("#task_body");
   taskBody.innerHTML = '';
-  allTasks.forEach(task => {
+  tasks.forEach(task => {
     let taskRow = document.createElement("tr");
     taskRow.classList.add("task_row");
 
@@ -61,41 +150,6 @@ function renderPage() {
     taskBody.appendChild(taskRow);
   });
 }
-
-function showStatisticsCards() {
-  let allTaskCount = document.querySelector("#all_task_count");
-  let activeTaskCount = document.querySelector("#active_task_count");
-  let paddingTaskCount = document.querySelector("#padding_task_count");
-  let closedTaskCount = document.querySelector("#closed_task_count");
-
-  let activeTaskProp = document.querySelector("#active_task_propoption")
-  let paddingTaskProp = document.querySelector("#padding_task_propoption")
-  let closedTaskProp = document.querySelector("#closed_task_propoption")
-
-  let allTasks = getAllTasks();
-  allTaskCount.textContent = allTasks.length;
-  countTasks(activeTaskCount, "Active", activeTaskProp);
-  countTasks(paddingTaskCount, "Padding", paddingTaskProp);
-  countTasks(closedTaskCount, "Closed", closedTaskProp);
-}
-
-function countTasks(countDom, status, propDom) {
-  countDom.textContent = 0;
-  let allTasks = getAllTasks();
-  allTasks.forEach(task => {
-    if (task.status === status) {
-      countDom.textContent++
-    }
-  });
-  
-  if(allTasks.length === 0) {
-    propDom.textContent = "0%";
-  }
-  else {
-    propDom.textContent = parseFloat((countDom.textContent/allTasks.length).toFixed(2)) * 100 + "%";
-  }
-}
-
 
 window.onload = function() {
   if(!getAllTasks()) {saveAllTasks([]);}
