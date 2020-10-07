@@ -28,6 +28,22 @@ function createUpdateTaskPopover(id) {
   showModalPopover();
 }
 
+function createDeleteTaskPopover(id) {
+  const icon = "./images/modal_delete_icon.svg";
+  const title = "Delete Task";
+  const okBtnClickEvent = "deleteTask(" + id + ")";
+  createPopoverHeaderAndFooter(icon, title, okBtnClickEvent);
+
+  let task = findTask(id);
+  let $container = document.createElement("p");
+  $container.textContent = `Do you confirm to delete task: "${task.name}"?`;
+
+  let modalContainer = document.querySelector("#modal_container");
+  modalContainer.innerHTML = '';
+  modalContainer.appendChild($container);
+  showModalPopover();
+}
+
 //设置弹出框内容
 function createModalPopover(icon, title, okBtnClickEvent, task) {
   createPopoverHeaderAndFooter(icon, title, okBtnClickEvent);
@@ -98,6 +114,15 @@ function updateTask(id) {
   }     
 
   allTasks.splice($index, 1, newTask);
+  saveAllTasks(allTasks);
+  renderPage();
+  hideModalPopover();
+}
+
+function deleteTask(id) {
+  let allTasks = getAllTasks();
+  let $index = allTasks.findIndex(task => task.id === id);
+  allTasks.splice($index, 1);
   saveAllTasks(allTasks);
   renderPage();
   hideModalPopover();
