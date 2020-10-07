@@ -60,5 +60,6 @@ function renderPage() {
 }
 
 window.onload = function() {
+  if(!getAllTasks()) {saveAllTasks([]);}
   renderPage();
 }
