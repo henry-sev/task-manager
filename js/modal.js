@@ -12,7 +12,7 @@ function hideModalPopover() {
 
 //创建新建任务弹出框
 function createdAddTaskPopover() {
-  const icon = "/images/modal_add_icon.svg";
+  const icon = "./images/modal_add_icon.svg";
   const title = "New A Task";
   createModalPopover(icon, title, "createTask()");
   showModalPopover();
@@ -20,7 +20,7 @@ function createdAddTaskPopover() {
 
 //创建修改任务弹出框
 function createUpdateTaskPopover(id) {
-  const icon = "/images/update.svg";
+  const icon = "./images/update.svg";
   const title = "Update A Task";
   const okBtnClickEvent = "updateTask(" + id + ")";
   let task = findTask(id);
@@ -73,23 +73,20 @@ function createTask() {
 }
 
 function updateTask(id) {
-  let $task = findTask(id);
-  // console.log($task);
   let nameInput = document.querySelector("#task_name");
   let deadlineInput = document.querySelector("#task_deadline");
   let descInput = document.querySelector("#task_desc");
-
   if (requiredCheck([nameInput, deadlineInput, descInput])) {
     return;
   }
-  
+
   //更新status
-  let $status = '';
   let allStatus = document.getElementsByName("status")
-  allStatus.forEach(status => $status = status.checked ? status.value : $status);
+  let $status = Array.from(allStatus).find(status => status.checked).value;
 
   let allTasks = getAllTasks()
-      //判断两个对象相等的方法
+  let $task = findTask(id);
+    //判断两个对象相等的方法
   let $index = allTasks.findIndex(task => JSON.stringify(task) === JSON.stringify($task));
   let newTask = {
     id: id,
