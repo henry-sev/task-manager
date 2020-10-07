@@ -1,5 +1,6 @@
 // You Need to implement
 function renderPage() {
+  showStatisticsCards();
   let allTasks = getAllTasks();
   let taskBody = document.querySelector("#task_body");
   taskBody.innerHTML = '';
@@ -60,6 +61,41 @@ function renderPage() {
     taskBody.appendChild(taskRow);
   });
 }
+
+function showStatisticsCards() {
+  let allTaskCount = document.querySelector("#all_task_count");
+  let activeTaskCount = document.querySelector("#active_task_count");
+  let paddingTaskCount = document.querySelector("#padding_task_count");
+  let closedTaskCount = document.querySelector("#closed_task_count");
+
+  let activeTaskProp = document.querySelector("#active_task_propoption")
+  let paddingTaskProp = document.querySelector("#padding_task_propoption")
+  let closedTaskProp = document.querySelector("#closed_task_propoption")
+
+  let allTasks = getAllTasks();
+  allTaskCount.textContent = allTasks.length;
+  countTasks(activeTaskCount, "Active", activeTaskProp);
+  countTasks(paddingTaskCount, "Padding", paddingTaskProp);
+  countTasks(closedTaskCount, "Closed", closedTaskProp);
+}
+
+function countTasks(countDom, status, propDom) {
+  countDom.textContent = 0;
+  let allTasks = getAllTasks();
+  allTasks.forEach(task => {
+    if (task.status === status) {
+      countDom.textContent++
+    }
+  });
+  
+  if(allTasks.length === 0) {
+    propDom.textContent = "0%";
+  }
+  else {
+    propDom.textContent = parseFloat((countDom.textContent/allTasks.length).toFixed(2)) * 100 + "%";
+  }
+}
+
 
 window.onload = function() {
   if(!getAllTasks()) {saveAllTasks([]);}
