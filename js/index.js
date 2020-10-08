@@ -44,7 +44,8 @@ function countTasks(countDom, status, propDom) {
     propDom.textContent = "0%";
   }
   else {
-    propDom.textContent = parseFloat((countDom.textContent/allTasks.length).toFixed(2)) * 100 + "%";
+    //0.14*100 精度问题
+    propDom.textContent = Math.floor(parseFloat((countDom.textContent/allTasks.length).toFixed(2)) * 100) + "%";
   }
 }
 
