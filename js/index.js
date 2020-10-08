@@ -2,20 +2,24 @@
 //渲染整个页面
 function renderPage() {
   showStatisticsCards();
-  showAllTasks();
+  showTasks();
 }
 
 //显示所有任务
-function showAllTasks() {
-  let allTasks = getAllTasks();
-  createTaskBody(allTasks);
-}
-
-// function showTasks() {
-//   createTaskBody(tasks);
+// function showAllTasks() {
+//   let allTasks = getAllTasks();
+//   //排序
+//   createTaskBody(allTasks);
 // }
 
-//显示任务统计结果
+//显示任务列表
+function showTasks(sortKey = "createDate", sortValue = 1, tasks = getAllTasks()) {
+    //排序
+  let sortedTasks = sortTasks(sortKey, sortValue, tasks)
+  createTaskBody(sortedTasks);
+}
+
+//显示任务统计栏数据
 function showStatisticsCards() {
   let allTaskCount = document.querySelector("#all_task_count");
   let activeTaskCount = document.querySelector("#active_task_count");
@@ -59,7 +63,7 @@ function filterTaskByStatus(status) {
   else {
     tasks = findTaskByStatus(status);
   }
-  createTaskBody(tasks);
+  showTasks("createDate", -1, tasks);
 }
 
 //根据任务名筛选任务，点击搜索按钮搜索任务
@@ -68,10 +72,10 @@ function filterTaskByName() {
   if (searchInput.value) {
     let taskName = searchInput.value;
     let tasks = findTaskByName(taskName);
-    createTaskBody(tasks);
+    showTasks("createDate", -1, tasks);
   }
   else {
-    showAllTasks();
+    showTasks();
   }
 }
 
@@ -81,12 +85,34 @@ function searchTasks(event) {
   if(event.keyCode === 13 && searchInput.value) {
     let taskName = searchInput.value;
     let tasks = findTaskByName(taskName);
-    createTaskBody(tasks);
+    showTasks("createDate", -1, tasks);
   }
     //keyCode被废弃？
   else if (event.keyCode === 13 && !searchInput.value) {
-    showAllTasks();
+    showTasks();
   }
+}
+
+//根据任务名称排序
+function sortTasks(sortKey, sortValue, tasks) {
+  // let allTasks = getAllTasks();
+  // let newTasks = [...allTasks];
+  tasks.sort((taskA, taskB) => {
+    if (taskA[sortKey] < taskB[sortKey]) {
+      return -sortValue;
+    }
+    if (taskA[sortKey] > taskB[sortKey]) {
+      return sortValue;
+    }
+    return 0;
+  });
+
+  return tasks;
+  // return tasks.map((task, index) => {
+  //   task.id = index + 1;
+  //   return task;
+  // });
+  // createTaskBody(newTasks);
 }
 
 //创建任务列表

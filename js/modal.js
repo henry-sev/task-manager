@@ -60,6 +60,7 @@ function createPopoverHeaderAndFooter(icon, title, okBtnClickEvent) {
   modalBtnOk.setAttribute("onclick", okBtnClickEvent);
 }
 
+//新建任务
 function createTask() {
   let nameInput = document.querySelector("#task_name");
   let deadlineInput = document.querySelector("#task_deadline");
@@ -78,6 +79,7 @@ function createTask() {
     id: maxId + 1,
     name: nameInput.value,
     deadline: deadlineInput.value,
+    // description: new Date().getTime(),
     description: descInput.value,
     status: "Active",
     createDate: new Date().getTime()
@@ -88,6 +90,7 @@ function createTask() {
   hideModalPopover();
 }
 
+//更新任务
 function updateTask(id) {
   let nameInput = document.querySelector("#task_name");
   let deadlineInput = document.querySelector("#task_deadline");
@@ -108,6 +111,7 @@ function updateTask(id) {
     id: id,
     name: nameInput.value,
     deadline: deadlineInput.value,
+    // description: new Date().getTime(),
     description: descInput.value,
     status: $status,
     createDate: new Date().getTime()
