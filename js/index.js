@@ -2,21 +2,14 @@
 //渲染整个页面
 function renderPage() {
   showStatisticsCards();
-  showTasks();
+  showAllTasks();
 }
 
-//显示所有任务
-// function showAllTasks() {
-//   let allTasks = getAllTasks();
-//   //排序
-//   createTaskBody(allTasks);
-// }
-
-//显示任务列表
-function showTasks(sortKey = "createDate", sortValue = 1, tasks = getAllTasks()) {
-    //排序
-  let sortedTasks = sortTasks(sortKey, sortValue, tasks)
-  createTaskBody(sortedTasks);
+// 显示所有任务
+function showAllTasks(sortKey = "createDate", sortValue = -1) {
+  sortTasks(sortKey, sortValue);
+  let allTasks = getAllTasks();
+  createTaskBody(allTasks);
 }
 
 //显示任务统计栏数据
@@ -58,12 +51,12 @@ function countTasks(countDom, status, propDom) {
 //根据status筛选任务
 function filterTaskByStatus(status) {
   if (status === "all") {
-    tasks = getAllTasks();
+    showAllTasks();
   }
   else {
     tasks = findTaskByStatus(status);
+    createTaskBody(tasks);
   }
-  showTasks("createDate", -1, tasks);
 }
 
 //根据任务名筛选任务，点击搜索按钮搜索任务
@@ -72,10 +65,10 @@ function filterTaskByName() {
   if (searchInput.value) {
     let taskName = searchInput.value;
     let tasks = findTaskByName(taskName);
-    showTasks("createDate", -1, tasks);
+    createTaskBody(tasks);
   }
   else {
-    showTasks();
+    showAllTasks();
   }
 }
 
@@ -85,17 +78,17 @@ function searchTasks(event) {
   if(event.keyCode === 13 && searchInput.value) {
     let taskName = searchInput.value;
     let tasks = findTaskByName(taskName);
-    showTasks("createDate", -1, tasks);
+    createTaskBody(tasks);
   }
     //keyCode被废弃？
   else if (event.keyCode === 13 && !searchInput.value) {
-    showTasks();
+    showAllTasks();
   }
 }
 
 //根据任务名称排序
-function sortTasks(sortKey, sortValue, tasks) {
-  // let allTasks = getAllTasks();
+function sortTasks(sortKey, sortValue) {
+  let tasks = getAllTasks();
   // let newTasks = [...allTasks];
   tasks.sort((taskA, taskB) => {
     if (taskA[sortKey] < taskB[sortKey]) {
@@ -107,12 +100,11 @@ function sortTasks(sortKey, sortValue, tasks) {
     return 0;
   });
 
-  return tasks;
-  // return tasks.map((task, index) => {
-  //   task.id = index + 1;
-  //   return task;
-  // });
-  // createTaskBody(newTasks);
+  let newTasks =  tasks.map((task, index) => {
+    task.id = index + 1;
+    return task;
+  });
+  saveAllTasks(newTasks);
 }
 
 //创建任务列表
